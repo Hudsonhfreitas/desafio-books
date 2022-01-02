@@ -40,6 +40,7 @@ export const Books = styled.h1`
     margin-left: 1.66rem;
 `
 export const Form = styled.form`
+    position: relative;
     margin-top: 4.8rem;
     display: flex;
     flex-direction: column;
@@ -47,6 +48,12 @@ export const Form = styled.form`
 
 export const InputContainer = styled.div`
     position: relative;
+    background: rgba(0, 0, 0, 0.32);
+    padding: 2.8rem 1.6rem .8rem 1.6rem;
+    border-radius: 4px;
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
     &:not(:first-child) { 
         margin-top: 1.6rem;
     }
@@ -63,25 +70,19 @@ export const Label = styled.label`
 `
 
 export const Email = styled.input.attrs({type: 'email'})`
-    background: rgba(0, 0, 0, 0.32);
-    backdrop-filter: blur(2px);
-    border-radius: 4px;
     border: none;
     width: 100%;
-    padding: 2.8rem 1.6rem .8rem 1.6rem;
+    background-color: transparent;
 `
 
 export const Password = styled.input.attrs({type: 'password'})`
-    background: rgba(0, 0, 0, 0.32);
-    backdrop-filter: blur(2px);
-    border-radius: 4px;
     border: none;
-    height: 6rem;
     width: 100%;
-    padding: 2.8rem 1.6rem .8rem 1.6rem;
+    background-color: transparent;
 `
 
-export const Button = styled.button`
+export const SubmitButton = styled.button.attrs({type: 'submit'})`
+    position: absolute;
     background: #FFFFFF;
     border-radius: 44px;
     font-weight: 500;
@@ -89,9 +90,31 @@ export const Button = styled.button`
     line-height: 2rem;
     color: #B22E6F;
     padding: .8rem 2rem ;
-    position: absolute;
     border: none;
     top: 50%;
     transform: translateY(-50%);
     right: 1.2rem;
 `
+
+export const Error = styled.div`
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    position: relative;
+    margin-top: 2.4rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    max-width: 24rem;
+    &::before {
+        content: "";
+        left: 1rem;
+        top: -0.5rem;
+        border-left: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+        border-bottom: 0.5rem solid rgba(255, 255, 255, 0.4);
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
+`;

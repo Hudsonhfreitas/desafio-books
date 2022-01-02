@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useState, useContext} from 'react';
+import { useNavigate  } from 'react-router-dom';
 
-import * as S from "./styles"
+import * as S from "./styles";
+import loginValidate from '../../commons/loginValidate';
+import {AttContext} from '../../contexts/AttContext';
 
 import logo from "../../assets/logo.svg"
 
+
 export default function Login() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState(false);
+    const navigate = useNavigate ();
+
+    const { handleLogin } = useContext(AttContext);
+
+    const validatingLogin = async (req) => {
+        try {
+            await loginValidate.validate(req);
+        } catch(err) {
+            throw new Error(err.error)
+        }
+    }
+
+    const handleSumit = async (e) => {
+        e.preventDefault();
+        try {
+            const request = {email, password};
+            await validatingLogin(request);
+            await handleLogin(email, password);
+            setLoginError(false);
+            navigate("/home")
+        }catch(error) {
+            setLoginError(true)
+        }
+    }
+
   return (
     <S.Container>
         <S.LoginWrapper>
@@ -15,14 +48,26 @@ export default function Login() {
                 </S.Header>
                 <S.Form>
                     <S.InputContainer>
-                        <S.Label>Email</S.Label>
-                        <S.Email />
+                        <S.Label htmlFor='email'>Email</S.Label>
+                        <S.Email
+                            id="email"
+                            name="email"
+                            onChange={ e => setEmail(e.target.value)}
+                        />
                     </S.InputContainer>
                     <S.InputContainer>
-                        <S.Label>Senha</S.Label>
-                        <S.Password /> 
-                        <S.Button>Entrar</S.Button>
+                        <S.Label htmlFor='password'>Senha</S.Label>
+                        <S.Password 
+                            id="password"
+                            name="password"
+                            onChange={ e => setPassword(e.target.value)}
+                        /> 
+                        <S.SubmitButton 
+                            onClick={handleSumit}>
+                            Entrar
+                        </S.SubmitButton>
                     </S.InputContainer>
+                    {loginError && <S.Error>E-mail e/ou senha incorretos</S.Error>}
                 </S.Form>
             </S.LoginContainer>
         </S.LoginWrapper>   
