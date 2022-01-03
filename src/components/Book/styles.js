@@ -8,6 +8,7 @@ export const Container = styled.li`
     height: 170px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 `
 
 export const BookImg = styled.div`

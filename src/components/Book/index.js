@@ -1,9 +1,9 @@
 import React from 'react';
 import * as S from './styles';
 
-function Book({bookData}) {
+function Book({bookData, getBookInfo}) {
   return (
-      <S.Container>
+      <S.Container onClick={() => getBookInfo(bookData.id)}>
         <S.BookImg src={bookData.imageUrl} alt={bookData.id}/>
         <S.BookInfoArea>
             <S.BookInfo>

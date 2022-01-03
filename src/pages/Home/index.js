@@ -7,6 +7,7 @@ import * as S from "./styles";
 
 import logo from "../../assets/Logoblack.svg";
 import Book from '../../components/Book';
+import Modal from '../../components/Modal';
 
 export default function Home() {
 
@@ -14,7 +15,9 @@ export default function Home() {
     const [totalPages, setTotalPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [user, setUser] = useState("");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [book, setBook] = useState();
+    const [modal, setModal] = useState(false);
 
     const {handleLogout} = useContext(AttContext)
 
@@ -48,7 +51,6 @@ export default function Home() {
         if(local) {
             loadData()
         }
-
 
     }, [])
 
@@ -89,10 +91,25 @@ export default function Home() {
         
     },[currentPage])
     
-    console.log(books)
+    const getBookInfo = async (id) => {
+        setModal(true)
+        setBook()
+        try {
+            const bookData = await api.get(`books/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${(json.token)}`
+                }
+            })
+            setBook(bookData.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
+        
         <S.Container>
+            {modal && <Modal book={book} setModal={setModal}/>}
             <S.HomeWrapper>
                 <S.Header>
                     <S.LeftContainer>    
@@ -108,7 +125,7 @@ export default function Home() {
                 <>
                     <S.BooksContainer>
                         {books && books.data.map((book, i) => (
-                            <Book key={i} bookData={book}/>
+                            <Book key={i} bookData={book} getBookInfo={getBookInfo}/>
                         ))
                         }       
                     </S.BooksContainer>
