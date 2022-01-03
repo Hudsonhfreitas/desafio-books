@@ -43,8 +43,8 @@ export default function useAtt() {
         setAuthenticated(false);
         localStorage.removeItem("ioasys");
         api.defaults.headers.Authorization = undefined;
-        history.push("/login");
-      }
+        history.push("/");
+    }
     
       return { authenticated, loading, handleLogin, handleLogout };
     

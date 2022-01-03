@@ -14,15 +14,59 @@ export default function Home() {
     const [totalPages, setTotalPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [user, setUser] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const {handleLogout} = useContext(AttContext)
 
+    let local = localStorage.getItem("ioasys");
+    let json = JSON.parse(local);
+
+    useEffect(() => {
+        async function loadData() {
+            try {
+                setLoading(true)
+                let booksData = await api.get("books", {
+                    headers: {
+                        Authorization: `Bearer ${(json.token)}`
+                    },
+                    params: {
+                        page: currentPage,
+                        amount: 12,
+                    }
+                })
+                setUser(json.name)
+                setBooks(booksData.data)
+                setTotalPages(Math.ceil(booksData.data.totalPages))
+                
+            } catch(err) {
+                handleLogout()
+            }
+            
+            setLoading(false)
+        } 
+
+        if(local) {
+            loadData()
+        }
+
+
+    }, [])
+
+    function handlePageChange(func) {
+
+        setLoading(true)
+
+        if(func === "next") {
+            setCurrentPage((page) => page + 1)
+        }
+        else {
+            setCurrentPage((page) => page - 1)
+        }
+    }
+
     useEffect(() => {
 
-        let local = localStorage.getItem("ioasys");
-        let json = JSON.parse(local)
-
-        async function loadData() {
+        async function changePage() {
             try {
                 let booksData = await api.get("books", {
                     headers: {
@@ -33,19 +77,17 @@ export default function Home() {
                         amount: 12,
                     }
                 })
-                setTotalPages(Math.ceil(json.totalPages))
-                setUser(json.name)
-                setBooks(booksData.data.data)
+                setBooks(booksData.data)
             } catch(err) {
                 handleLogout()
             }
-        } 
-
-        if(local) {
-            loadData()
+            
+            setLoading(false)
         }
 
-    }, [])
+        changePage()
+        
+    },[currentPage])
     
     console.log(books)
 
@@ -62,11 +104,33 @@ export default function Home() {
                         <S.Logout onClick={handleLogout}></S.Logout>
                     </S.RightContainer>
                 </S.Header>
-                <S.BooksContainer>
-                    {books && books.map(book => (
-                        <Book bookData={book}/>
-                    ))}
-                </S.BooksContainer>
+                { loading === false ?
+                <>
+                    <S.BooksContainer>
+                        {books && books.data.map((book, i) => (
+                            <Book key={i} bookData={book}/>
+                        ))
+                        }       
+                    </S.BooksContainer>
+                    <S.Controller>
+                        <S.Pages>
+                            Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
+                        </S.Pages>
+                        <S.ButtonController 
+                            disabled={currentPage === 1 ? true : false} 
+                            onClick={() => handlePageChange("prev")}
+                        >&lt;</S.ButtonController>
+                        <S.ButtonController 
+                            disabled={currentPage === totalPages ? true : false}
+                            onClick={() => handlePageChange("next")}
+                        >&gt;</S.ButtonController>
+                    </S.Controller>
+                </>
+                :
+                <S.Loading>
+                    <h1>Carregando...</h1>
+                </S.Loading>
+                }
             </S.HomeWrapper>
         </S.Container>
     )

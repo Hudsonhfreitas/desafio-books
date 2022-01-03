@@ -10,10 +10,12 @@ export const Container = styled.li`
     align-items: center;
 `
 
-export const BookImg = styled.img`
+export const BookImg = styled.div`
     width: 100%;
     height: 12.2rem;
     max-width: 8.1rem;
+    background: ${props => `url(${props.src})`} no-repeat center center;
+    background-size: cover;
 `
 export const BookInfoArea = styled.div`
     margin-left: 1.6rem;

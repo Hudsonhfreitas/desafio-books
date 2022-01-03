@@ -1,4 +1,4 @@
-const getToken = async () => {
+const getToken = () => {
     try {
       const local = localStorage.getItem("ioasys");
       const json = JSON.parse(local);
@@ -11,7 +11,8 @@ const getToken = async () => {
       };
       
     } catch (err) {
-      throw new Error(err);
+      console.log(err);
+      return null
     }
   };
   
