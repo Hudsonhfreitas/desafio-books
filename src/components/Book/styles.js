@@ -5,7 +5,7 @@ export const Container = styled.li`
     box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
     border-radius: 4px;
     padding: 1.6rem;
-    height: 170px;
+    height: 17rem;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -17,6 +17,7 @@ export const BookImg = styled.div`
     max-width: 8.1rem;
     background: ${props => `url(${props.src})`} no-repeat center center;
     background-size: cover;
+    filter: drop-shadow(0px 6px 9px rgba(0, 0, 0, 0.15));
 `
 export const BookInfoArea = styled.div`
     margin-left: 1.6rem;
@@ -24,6 +25,7 @@ export const BookInfoArea = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
 `
 
 export const BookInfo = styled.div`

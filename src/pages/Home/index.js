@@ -106,6 +106,15 @@ export default function Home() {
         }
     }
 
+    useEffect(() => {
+        if(modal) {
+            document.getElementById('root').setAttribute('style', 'overflow: hidden')
+        } else {
+            document.getElementById('root').removeAttribute('style', 'overflow: auto')
+        }
+        
+    }, [modal])
+
     return (
         
         <S.Container>
@@ -117,7 +126,7 @@ export default function Home() {
                         <S.Books>Books</S.Books>
                     </S.LeftContainer>
                     <S.RightContainer>
-                        <span >Bem vindo, <strong>{user}</strong></span>
+                        <span>Bem vindo, <strong>{user}</strong></span>
                         <S.Logout onClick={handleLogout}></S.Logout>
                     </S.RightContainer>
                 </S.Header>
@@ -134,10 +143,12 @@ export default function Home() {
                             Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
                         </S.Pages>
                         <S.ButtonController 
+                            id="prev"
                             disabled={currentPage === 1 ? true : false} 
                             onClick={() => handlePageChange("prev")}
                         >&lt;</S.ButtonController>
                         <S.ButtonController 
+                            id="next"
                             disabled={currentPage === totalPages ? true : false}
                             onClick={() => handlePageChange("next")}
                         >&gt;</S.ButtonController>

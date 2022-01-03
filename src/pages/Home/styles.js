@@ -46,6 +46,9 @@ export const RightContainer = styled.div`
         font-size: 1.2rem;
         line-height: 1.6rem;
         color: #333333;
+        @media screen and (max-width: 480px) {
+            display: none;
+        }
     }
 `
 
@@ -65,6 +68,14 @@ export const BooksContainer = styled.ul`
 `
 export const Controller = styled.div`
     margin-top: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    @media screen and (max-width: 480px) {
+        justify-content: center;
+        text-align: center;
+        position: relative;     
+    }
 `
 
 export const Pages = styled.span`
@@ -73,7 +84,9 @@ export const Pages = styled.span`
     line-height: 2rem;
     color: #333333;
     margin-right: 1.6rem;
-
+    @media screen and (max-width: 480px) {
+        margin-right: 0;     
+    }
 `
 
 export const ButtonController = styled.button`
@@ -89,6 +102,17 @@ export const ButtonController = styled.button`
     }
     &:disabled {
         color: rgba(51, 51, 51, 0.4);
+    }
+    @media screen and (max-width: 480px) {
+        &#prev, &#next{
+            position: absolute;
+        }
+        &#prev {
+            left: 20%;
+        }
+        &#next {
+            right: 20%;
+        }
     }
 `
 

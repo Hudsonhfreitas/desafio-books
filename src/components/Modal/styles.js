@@ -9,10 +9,14 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    
     h3 {
         font-size: 1.2rem;
         line-height: 2.8rem;
         text-transform: uppercase;
+    }
+    @media screen and (max-width: 420px) {
+        height: 140vh;
     }
 `
 
@@ -21,7 +25,8 @@ export const Modal = styled.div`
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(2px);
-    position: absolute;
+    position: fixed;
+    top: 0;
 `
 
 export const BookContainer = styled.div`
@@ -34,19 +39,37 @@ export const BookContainer = styled.div`
     display: flex;
     align-items: center;
     z-index: 2;
+    position: absolute;
+    @media screen and (max-width: 620px) {
+        flex-direction: column;
+        padding: 2.4rem;
+    }
+    @media screen and (max-width: 420px) {
+        top: 6rem;
+    }
+    
 `
 
 export const BookImage = styled.div`
     width: 34.9rem;
-    height: 512px;
+    height: 51rem;
     background: ${props => `url(${props.src})`} no-repeat center center;
     background-size: cover;
+    filter: drop-shadow(0px 12px 18px rgba(0, 0, 0, 0.3));
+    @media screen and (max-width: 722px) {
+        height: 35.1rem;
+        width: 24rem;
+    }
 `
 
 export const InfoArea = styled.div`
     margin-left: 4.8rem;
     width: 100%;
     flex: 1;
+    @media screen and (max-width: 620px) {
+        margin-top: 2.4rem;
+        margin-left: 0;
+    }
 `
 
 export const Top = styled.div`
