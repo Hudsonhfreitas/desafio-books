@@ -6,12 +6,14 @@ import api from "../services/api";
 export default function useAtt() {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+
     
     useEffect(() => {
-        const token = localStorage.getItem("token");
-
-        if(token) {
-            api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
+        const local = localStorage.getItem("ioasys");
+        const json = JSON.parse(local)
+        
+        if(json) {
+            api.defaults.headers.Authorization = `Bearer ${json.token}`
             setAuthenticated(true)
         }
 
@@ -23,24 +25,23 @@ export default function useAtt() {
             email,
             password,
         });
-        const name = res.data.name;
-        const token = res.headers.authorization;
-        const refreshToken = res.headers["refresh-token"];
 
-        localStorage.setItem("name", JSON.stringify(name))
-        localStorage.setItem("token", JSON.stringify(token))
-        localStorage.setItem("refresh-token", JSON.stringify(refreshToken))
+        const ioasys = {
+            token: res.headers.authorization,
+            refreshToken: res.headers["refresh-token"],
+            name: res.data.name,
+        }
 
-        api.defaults.headers.Authorization = `Bearer ${token}`;
+        localStorage.setItem("ioasys", JSON.stringify(ioasys))
+
+        api.defaults.headers.Authorization = `Bearer ${ioasys.token}`;
 
         setAuthenticated(true)
     }
 
     function handleLogout() {
         setAuthenticated(false);
-        localStorage.removeItem("token");
-        localStorage.removeItem("name");
-        localStorage.removeItem("refresh-token");
+        localStorage.removeItem("ioasys");
         api.defaults.headers.Authorization = undefined;
         history.push("/login");
       }

@@ -13,7 +13,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
-    const navigate = useNavigate ();
+    const navigate = useNavigate();
 
     const { handleLogin } = useContext(AttContext);
 
