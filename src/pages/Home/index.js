@@ -6,6 +6,7 @@ import api from '../../services/api';
 import * as S from "./styles";
 
 import logo from "../../assets/Logoblack.svg";
+import Book from '../../components/Book';
 
 export default function Home() {
 
@@ -63,22 +64,7 @@ export default function Home() {
                 </S.Header>
                 <S.BooksContainer>
                     {books && books.map(book => (
-                        <S.BookItem key={book.id}>
-                            <S.BookImg src={book.imageUrl} alt={book.id}/>
-                            <S.BookInfoArea>
-                                <S.BookInfo>
-                                    <S.BookTitle>{book.title}</S.BookTitle>
-                                    {book.authors.map((author, i) => (
-                                        <S.BookAuthor key={i}>{author}</S.BookAuthor>
-                                    ))}
-                                </S.BookInfo>
-                                <S.BookDetails>
-                                    <S.BookSpan>{`${book.pageCount} páginas`}</S.BookSpan>
-                                    <S.BookSpan>{book.publisher}</S.BookSpan>
-                                    <S.BookSpan>{`Publicado em ${book.published}`}</S.BookSpan>
-                                </S.BookDetails>
-                            </S.BookInfoArea>
-                        </S.BookItem>
+                        <Book bookData={book}/>
                     ))}
                 </S.BooksContainer>
             </S.HomeWrapper>
