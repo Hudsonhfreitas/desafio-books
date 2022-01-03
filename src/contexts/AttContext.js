@@ -5,10 +5,10 @@ export const AttContext = createContext();
 
 export const AttProvider = ({children}) => {
 
-    const {authenticated, loading, handleLogin, handleLogout} = useAtt();
+    const {authenticated, handleLogin, handleLogout} = useAtt();
     
     return (
-        <AttContext.Provider value={{authenticated, loading, handleLogin, handleLogout}}>
+        <AttContext.Provider value={{authenticated, handleLogin, handleLogout}}>
             {children}
         </AttContext.Provider>
     )

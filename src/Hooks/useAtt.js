@@ -5,8 +5,6 @@ import api from "../services/api";
 
 export default function useAtt() {
     const [authenticated, setAuthenticated] = useState(false);
-    const [loading, setLoading] = useState(true);
-
     
     useEffect(() => {
         const local = localStorage.getItem("ioasys");
@@ -17,7 +15,6 @@ export default function useAtt() {
             setAuthenticated(true)
         }
 
-        setLoading(false)
     }, []);
 
     async function handleLogin(email, password) {
@@ -46,6 +43,6 @@ export default function useAtt() {
         history.push("/");
     }
     
-      return { authenticated, loading, handleLogin, handleLogout };
+      return { authenticated,  handleLogin, handleLogout };
     
 }
