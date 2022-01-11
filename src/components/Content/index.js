@@ -22,16 +22,14 @@ const reducer = (state, action) => {
 
 function Content({setBook, setModal}) {
 
+    let local = localStorage.getItem("ioasys");
+    let json = JSON.parse(local);
+
     const [books, setBooks] = useState()
-    const [totalPages, setTotalPages] = useState(0);
     const [currentPage, dispatch] = useReducer(reducer, 1);
-    const [user, setUser] = useState("");
     const [loading, setLoading] = useState(false);
 
     const {handleLogout} = useContext(AttContext)
-
-    let local = localStorage.getItem("ioasys");
-    let json = JSON.parse(local);
 
     const getBookInfo = async (id) => {
         
@@ -64,9 +62,7 @@ function Content({setBook, setModal}) {
                         amount: 12,
                     }
                 })
-                setUser(json.name)
                 setBooks(booksData.data)
-                setTotalPages(Math.ceil(booksData.data.totalPages))
                 
             } catch(err) {
                 handleLogout()
@@ -79,34 +75,8 @@ function Content({setBook, setModal}) {
             loadData()
         }
 
-    }, [])
-
-    useEffect(() => {
-
-        async function changePage() {
-            try {
-                setLoading(true)
-                let booksData = await api.get("books", {
-                    headers: {
-                        Authorization: `Bearer ${(json.token)}`
-                    },
-                    params: {
-                        page: currentPage,
-                        amount: 12,
-                    }
-                })
-                setBooks(booksData.data)
-            } catch(err) {
-                handleLogout()
-            }
-            
-            setLoading(false)
-        }
-
-        changePage()
-        
     }, [currentPage])
-    
+   
 
     return (
         <S.Container>
@@ -116,7 +86,7 @@ function Content({setBook, setModal}) {
                     <S.Books>Books</S.Books>
                 </S.LeftContainer>
                 <S.RightContainer>
-                    <span>Bem vindo, <strong>{user}</strong></span>
+                    <span>Bem vindo, <strong>{json.name}</strong></span>
                     <S.Logout onClick={handleLogout}></S.Logout>
                 </S.RightContainer>
             </S.Header>
@@ -130,7 +100,7 @@ function Content({setBook, setModal}) {
                 </S.BooksContainer>
                 <S.Controller>
                     <S.Pages>
-                        Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
+                        Página <strong>{currentPage}</strong> de <strong>{books && Math.ceil(books.totalPages)}</strong>
                     </S.Pages>
                     <S.ButtonController 
                         id="prev"
@@ -139,7 +109,7 @@ function Content({setBook, setModal}) {
                     >&lt;</S.ButtonController>
                     <S.ButtonController 
                         id="next"
-                        disabled={currentPage === totalPages ? true : false}
+                        disabled={books && currentPage === Math.ceil(books.totalPages) ? true : false}
                         onClick={() => dispatch("next")}
                     >&gt;</S.ButtonController>
                 </S.Controller>
