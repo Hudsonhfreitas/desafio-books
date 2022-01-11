@@ -11,8 +11,7 @@ const getToken = () => {
       };
       
     } catch (err) {
-      console.log(err);
-      return null
+        return null
     }
   };
   

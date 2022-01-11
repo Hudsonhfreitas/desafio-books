@@ -8,8 +8,8 @@ function Book({bookData, getBookInfo}) {
         <S.BookInfoArea>
             <S.BookInfo>
                 <S.BookTitle>{bookData.title}</S.BookTitle>
-                {bookData.authors.map((author, i) => (
-                    <S.BookAuthor key={i}>{author}</S.BookAuthor>
+                {bookData.authors.map((author) => (
+                    <S.BookAuthor key={author}>{author}</S.BookAuthor>
                 ))}
             </S.BookInfo>
             <S.BookDetails>

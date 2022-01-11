@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import * as S from './styles';
 
 import quotes from '../../assets/quotes.svg';
@@ -6,11 +6,16 @@ import close from '../../assets/close.svg';
 
 function Modal({book, setModal}) {
 
+    const handleClose = useCallback(() => {
+        document.getElementById('root').removeAttribute('style', 'overflow: auto')
+        setModal(false)
+    }, [])
+
   return (
 
     <S.Container>
-        <S.Modal onClick={() => setModal(false)}/>
-        <S.CloseButton background={close} onClick={() => setModal(false)} />
+        <S.Modal onClick={handleClose}/>
+        <S.CloseButton background={close} onClick={handleClose}/>
         {book && 
             <S.BookContainer>
                 <S.BookImage src={book.imageUrl}  alt={book.title}/>

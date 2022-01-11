@@ -15,9 +15,6 @@ export const Container = styled.div`
         line-height: 2.8rem;
         text-transform: uppercase;
     }
-    @media screen and (max-width: 420px) {
-        height: 140vh;
-    }
 `
 
 export const Modal = styled.div`
