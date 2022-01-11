@@ -13,6 +13,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
+    const [loginStatus, setLoginStatus] = useState();
     const navigate = useNavigate();
 
     const { handleLogin } = useContext(AttContext);
@@ -20,8 +21,9 @@ export default function Login() {
     const validatingLogin = async (req) => {
         try {
             await loginValidate.validate(req);
+            setLoginStatus()
         } catch(err) {
-            throw new Error(err.error)
+            throw new setLoginStatus(err.errors)
         }
     }
 
@@ -32,6 +34,7 @@ export default function Login() {
             await validatingLogin(request);
             await handleLogin(email, password);
             setLoginError(false);
+            setLoginStatus()
             navigate("/home")
         }catch(error) {
             setLoginError(true)
@@ -67,7 +70,8 @@ export default function Login() {
                             Entrar
                         </S.SubmitButton>
                     </S.InputContainer>
-                    {loginError && <S.Error>E-mail e/ou senha incorretos</S.Error>}
+                    {loginError && !loginStatus && <S.Error>E-mail e/ou senha incorretos</S.Error>}
+                    {loginStatus && <S.Error>{loginStatus}</S.Error>}
                 </S.Form>
             </S.LoginContainer>
         </S.LoginWrapper>   
