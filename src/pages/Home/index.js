@@ -14,7 +14,6 @@ export default function Home() {
     const [modal, setModal] = useState(false);
 
     return (
-        
         <S.Container>
             {modal && <Modal book={book} setBook={setBook} setModal={setModal} />}
             <Content setBook={setBook} setModal={setModal}/>

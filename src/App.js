@@ -4,12 +4,12 @@ import {AttProvider} from "./contexts/AttContext";
 
 function App() {
   return (
-    <div>
+    <>
       <AttProvider>
         <Router />
         <GlobalStyle />
       </AttProvider>
-    </div>
+    </>
   );
 }
 

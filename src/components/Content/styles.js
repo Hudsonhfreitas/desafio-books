@@ -2,11 +2,6 @@ import styled from "styled-components";
 import logout from "../../assets/logout.svg";
 
 export const Container = styled.div`
-    height: 100%;
-    width: 100%;
-`
-
-export const HomeWrapper = styled.div`
     width: 100%;
     height: 100%;
     max-width: 1166px;

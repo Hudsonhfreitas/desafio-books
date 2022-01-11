@@ -109,50 +109,48 @@ function Content({setBook, setModal}) {
     
 
     return (
-        
         <S.Container>
-            <S.HomeWrapper>
-                <S.Header>
-                    <S.LeftContainer>    
-                        <S.Logo src={logo}/>
-                        <S.Books>Books</S.Books>
-                    </S.LeftContainer>
-                    <S.RightContainer>
-                        <span>Bem vindo, <strong>{user}</strong></span>
-                        <S.Logout onClick={handleLogout}></S.Logout>
-                    </S.RightContainer>
-                </S.Header>
-                { loading === false ?
-                <>
-                    <S.BooksContainer>
-                        {books && books.data.map((book) => (
-                            <Book key={book.id} bookData={book} getBookInfo={getBookInfo}/>
-                        ))
-                        }       
-                    </S.BooksContainer>
-                    <S.Controller>
-                        <S.Pages>
-                            Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
-                        </S.Pages>
-                        <S.ButtonController 
-                            id="prev"
-                            disabled={currentPage === 1 ? true : false} 
-                            onClick={() => dispatch("prev")}
-                        >&lt;</S.ButtonController>
-                        <S.ButtonController 
-                            id="next"
-                            disabled={currentPage === totalPages ? true : false}
-                            onClick={() => dispatch("next")}
-                        >&gt;</S.ButtonController>
-                    </S.Controller>
-                </>
-                :
-                <S.Loading>
-                    <h1>Carregando...</h1>
-                </S.Loading>
-                }
-            </S.HomeWrapper>
+            <S.Header>
+                <S.LeftContainer>    
+                    <S.Logo src={logo}/>
+                    <S.Books>Books</S.Books>
+                </S.LeftContainer>
+                <S.RightContainer>
+                    <span>Bem vindo, <strong>{user}</strong></span>
+                    <S.Logout onClick={handleLogout}></S.Logout>
+                </S.RightContainer>
+            </S.Header>
+            { loading === false ?
+            <>
+                <S.BooksContainer>
+                    {books && books.data.map((book) => (
+                        <Book key={book.id} bookData={book} getBookInfo={getBookInfo}/>
+                    ))
+                    }       
+                </S.BooksContainer>
+                <S.Controller>
+                    <S.Pages>
+                        Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
+                    </S.Pages>
+                    <S.ButtonController 
+                        id="prev"
+                        disabled={currentPage === 1 ? true : false} 
+                        onClick={() => dispatch("prev")}
+                    >&lt;</S.ButtonController>
+                    <S.ButtonController 
+                        id="next"
+                        disabled={currentPage === totalPages ? true : false}
+                        onClick={() => dispatch("next")}
+                    >&gt;</S.ButtonController>
+                </S.Controller>
+            </>
+            :
+            <S.Loading>
+                <h1>Carregando...</h1>
+            </S.Loading>
+            }
         </S.Container>
+       
     )
 }
 

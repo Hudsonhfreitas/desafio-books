@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo} from 'react';
 import * as S from './styles';
 
 import quotes from '../../assets/quotes.svg';
@@ -68,4 +68,4 @@ function Modal({book, setModal}) {
   );
 }
 
-export default Modal;
+export default memo(Modal);
